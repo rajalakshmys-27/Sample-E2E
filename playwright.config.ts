@@ -1,5 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -30,7 +34,10 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    video: 'on',
   },
+  reporter: [['list'], ['html']], // optional: nice HTML report
+  outputDir: path.join(__dirname, 'videos'), // 👈 save videos here
 
   /* Configure projects for major browsers */
   projects: [
